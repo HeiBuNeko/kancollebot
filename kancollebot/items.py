@@ -10,3 +10,18 @@ class KancollebotItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     pass
+
+
+class ShipItem(scrapy.Item):
+    # define the fields for your item here like:
+    name = scrapy.Field()
+    href = scrapy.Field()
+
+
+class TimeItem(scrapy.Item):
+    # define the fields for your item here like:
+    name = scrapy.Field()
+    time = scrapy.Field()
+    time_word_cn = scrapy.Field()
+    time_word_jp = scrapy.Field()
+    href = scrapy.Field()
