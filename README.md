@@ -10,7 +10,7 @@
 scrapy crawl ship_list
 ```
 
-例如：排除名称中带有‘“改”的舰娘，如需全部舰娘列表请将对 ``a``标签的限制去除
+如需全部舰娘列表请将对 ``a``标签的限制去除
 
 ```
         links = table.xpath(
@@ -26,4 +26,8 @@ scrapy crawl ship_list
 scrapy crawl time_list
 ```
 
-结果存放于根目录的 ``time_list`` 文件夹中
+结果存放于根目录的 ``time_list`` 文件夹
+
+用于 `koishi-plugin-kancolle-time `插件，采用 `json` 格式存储便于 `JavaScript` `JSON.parse `解析
+
+目前发现的问题：有且仅有 ``朝潮.json``会有前两行多余数据，请手动排除
