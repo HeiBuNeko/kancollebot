@@ -12,9 +12,9 @@ class TimeListSpider(scrapy.Spider):
     }
 
     def start_requests(self):
-        with open("ship_list.jsonl", encoding="utf-8") as f:
-            for line in f:
-                ship_item = json.loads(line.strip())
+        with open("ship_list.json", encoding="utf-8") as file:
+            ship_list = json.load(file)
+            for ship_item in ship_list:
                 yield scrapy.Request(ship_item["href"], self.parse)
 
     def parse(self, response):

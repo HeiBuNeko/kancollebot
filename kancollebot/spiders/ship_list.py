@@ -9,9 +9,12 @@ class ShipListSpider(scrapy.Spider):
     ]
     custom_settings = {
         "FEEDS": {
-            "ship_list.jsonl": {
-                "format": "jsonlines",
-                "overwrite": True,
+            "ship_list.json": {
+                "format": "json",
+                "encoding": "utf8",
+                "store_empty": False,
+                "fields": None,
+                "indent": 4,
             }
         },
         "ITEM_PIPELINES": {
