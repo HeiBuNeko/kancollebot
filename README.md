@@ -33,13 +33,12 @@ scrapy crawl ship_list
 1. Wiki部分页面中 `时报` 为 `报时`
 2. 由单一ID选择器都会定位到两个相同的表格
 3. 文本描述末尾带有 `\n` 需要处理
+4. 有且仅有 `朝潮` 会有前两行多余数据
 
 ```
 scrapy crawl time_list
 ```
 
-结果存放于根目录的 `time_list` 文件夹
+结果存放于根目录的 `ship_list.json` 中
 
 用于 `koishi-plugin-kancolle-time `插件，采用 `json` 格式存储便于 `JavaScript` `JSON.parse `解析
-
-目前发现的问题：有且仅有 `朝潮.json`会有前两行多余数据，请手动排除
