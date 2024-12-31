@@ -15,6 +15,7 @@ class ShipListSpider(scrapy.Spider):
                 "store_empty": False,
                 "fields": None,
                 "indent": 4,
+                "overwrite": True,
             }
         },
         "ITEM_PIPELINES": {

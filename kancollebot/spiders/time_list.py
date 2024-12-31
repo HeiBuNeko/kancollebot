@@ -6,6 +6,16 @@ from kancollebot.items import TimeItem
 class TimeListSpider(scrapy.Spider):
     name = "time_list"
     custom_settings = {
+        "FEEDS": {
+            "time_list.json": {
+                "format": "json",
+                "encoding": "utf8",
+                "store_empty": False,
+                "fields": None,
+                "indent": 4,
+                "overwrite": True,
+            }
+        },
         "ITEM_PIPELINES": {
             "kancollebot.pipelines.TimeListPipeline": 300,
         },

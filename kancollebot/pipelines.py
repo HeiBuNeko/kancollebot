@@ -5,12 +5,7 @@
 
 
 # useful for handling different item types with a single interface
-from contextlib import ExitStack
-import json
-import os
-
-from itemadapter import ItemAdapter
-
+from scrapy.exceptions import DropItem
 
 class KancollebotPipeline:
     def process_item(self, item, spider):
@@ -24,21 +19,7 @@ class ShipListPipeline:
 
 
 class TimeListPipeline:
-    def open_spider(self, spider):
-        self.files = {}
-        self.data = {}
-        os.makedirs("time_list", exist_ok=True)
-
-    def close_spider(self, spider):
-        with ExitStack() as stack:
-            for name, items in self.data.items():
-                file_path = os.path.join("time_list", f"{name}.json")
-                with stack.enter_context(open(file_path, "w", encoding="utf-8")) as f:
-                    json.dump(items, f, ensure_ascii=False, indent=4)
-
     def process_item(self, item, spider):
-        name = item.get("name")
-        if name not in self.data:
-            self.data[name] = []
-        self.data[name].append(dict(item))
+        if item['name'] == '朝潮' and '时报' not in item['time']:
+            raise DropItem('排除朝潮非时报项')
         return item

@@ -162,5 +162,5 @@ cython_debug/
 #.idea/
 
 # Product
-time_list/
 ship_list.json
+time_list.json
