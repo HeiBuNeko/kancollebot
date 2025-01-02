@@ -29,6 +29,11 @@ class TimeListSpider(scrapy.Spider):
 
     def parse(self, response):
         name = response.xpath('//h1[@id="firstHeading"]/text()').get()
+
+        # 折叠
+        collapse_trs = response.xpath(
+            '//span[@id=".E6.97.B6.E6.8A.A5"]/../following-sibling::div[contains(@class,"mw-collapsible")][1]/div[contains(@class,"mw-collapsible-content")]/table/tr'
+        )
         # 时报
         shibao_trs = response.xpath(
             '//span[@id=".E6.97.B6.E6.8A.A5"]/../following-sibling::table[1]/tr'
@@ -37,8 +42,8 @@ class TimeListSpider(scrapy.Spider):
         baoshi_trs = response.xpath(
             '//span[@id=".E6.8A.A5.E6.97.B6"]/../following-sibling::table[1]/tr'
         )
-        # print(f"{name} {shibao_trs} 时报表格 {baoshi_trs} 报时表格")
-        time_trs = shibao_trs if len(shibao_trs) > 0 else baoshi_trs
+        time_trs = collapse_trs or shibao_trs or baoshi_trs
+
         # 表格
         for time_tr_i in range(1, len(time_trs), 2):
             time_item = TimeItem()

@@ -7,6 +7,7 @@
 # useful for handling different item types with a single interface
 from scrapy.exceptions import DropItem
 
+
 class KancollebotPipeline:
     def process_item(self, item, spider):
         return item
@@ -20,6 +21,6 @@ class ShipListPipeline:
 
 class TimeListPipeline:
     def process_item(self, item, spider):
-        if item['name'] == '朝潮' and '时报' not in item['time']:
-            raise DropItem('排除朝潮非时报项')
+        if "时报" not in item["time"]:
+            raise DropItem("排除非时报项")
         return item
