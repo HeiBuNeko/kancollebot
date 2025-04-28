@@ -34,5 +34,5 @@ class ShipListSpider(scrapy.Spider):
         )
         for link in links:
             ship_item["name"] = link.xpath("text()").get()
-            ship_item["href"] = link.attrib["href"]
+            ship_item["href"] = link.attrib["href"].replace("wiki", "zh-cn")
             yield ship_item
