@@ -11,6 +11,7 @@
 1. 部分条目 Wiki 未收录 `new`
 2. 排除表头 `images`，补全 `href`
 3. 部分条目为重定向页面 `改`
+4. `zh-cn` 替换 `wiki`，确保中文数据
 
 ```
 scrapy crawl ship_list
@@ -38,6 +39,7 @@ scrapy crawl time_list
 
 # 更新日志
 
+- v1.1.2 ship_list “zh-cn”替换“wiki” fix: time_list 简繁随机出现的问题
 - v1.1.1 数据更新 舰娘百科v2025.02.25
 - v1.1.0 数据更新 舰娘百科v2025.01.20
 - v1.0.6 上传产物用于校对差异性
