@@ -1,0 +1,9 @@
+[project]
+name = "kancollebot"
+version = "1.1.2"
+description = "舰娘百科-舰娘列表-时报 Scrapy 项目"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "scrapy>=2.14.2",
+]

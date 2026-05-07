@@ -24,7 +24,6 @@ class ShipListSpider(scrapy.Spider):
     }
 
     def parse(self, response):
-        ship_item = ShipItem()
         # 舰娘列表
         # 1级 99级 Table
         table = response.css(".wikitable.fixtable")[0]
@@ -33,6 +32,6 @@ class ShipListSpider(scrapy.Spider):
             './/a[not(contains(@class, "new") or contains(@class, "image") or contains(text(), "改"))]'
         )
         for link in links:
-            ship_item["name"] = link.xpath("text()").get()
-            ship_item["href"] = link.attrib["href"].replace("wiki", "zh-cn")
-            yield ship_item
+            name = link.xpath("text()").get()
+            href = link.attrib["href"].replace("wiki", "zh-cn")
+            yield ShipItem(name=name, href=href)

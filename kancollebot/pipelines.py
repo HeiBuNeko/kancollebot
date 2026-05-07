@@ -5,6 +5,7 @@
 
 
 # useful for handling different item types with a single interface
+
 from scrapy.exceptions import DropItem
 
 
@@ -20,7 +21,12 @@ class ShipListPipeline:
 
 
 class TimeListPipeline:
+    def open_spider(self, spider):
+        self._seen_keys = set()
+
     def process_item(self, item, spider):
-        if "时报" not in item["time"]:
-            raise DropItem("排除非时报项")
+        key = (item["name"], item["time"])
+        if key in self._seen_keys:
+            raise DropItem(f"duplicate time slot: {key!r}")
+        self._seen_keys.add(key)
         return item
