@@ -14,14 +14,14 @@ class KancollebotItem(scrapy.Item):
 
 class ShipItem(scrapy.Item):
     # define the fields for your item here like:
-    name = scrapy.Field()
-    href = scrapy.Field()
+    ship_name = scrapy.Field()
+    wiki_url = scrapy.Field()
 
 
 class TimeItem(scrapy.Item):
     # define the fields for your item here like:
-    name = scrapy.Field()
-    time = scrapy.Field()
-    time_word_cn = scrapy.Field()
-    time_word_jp = scrapy.Field()
-    href = scrapy.Field()
+    ship_name = scrapy.Field()
+    time_label = scrapy.Field()
+    audio_url = scrapy.Field()
+    voice_line_ja = scrapy.Field()
+    voice_line_zh = scrapy.Field()

@@ -16,7 +16,7 @@ class KancollebotPipeline:
 
 class ShipListPipeline:
     def process_item(self, item, spider):
-        item["href"] = "https://zh.kcwiki.cn" + item["href"]
+        item["wiki_url"] = "https://zh.kcwiki.cn" + item["wiki_url"]
         return item
 
 
@@ -25,7 +25,7 @@ class TimeListPipeline:
         self._seen_keys = set()
 
     def process_item(self, item, spider):
-        key = (item["name"], item["time"])
+        key = (item["ship_name"], item["time_label"])
         if key in self._seen_keys:
             raise DropItem(f"duplicate time slot: {key!r}")
         self._seen_keys.add(key)

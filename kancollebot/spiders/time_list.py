@@ -27,11 +27,11 @@ class TimeListSpider(scrapy.Spider):
         with open("ship_list.json", encoding="utf-8") as file:
             ship_list = json.load(file)
             for ship_item in ship_list:
-                yield scrapy.Request(ship_item["href"], self.parse)
+                yield scrapy.Request(ship_item["wiki_url"], self.parse)
         # yield scrapy.Request("https://zh.kcwiki.cn/zh-cn/U-511", self.parse)
 
     def parse(self, response: TextResponse):
-        name = response.xpath('//h1[@id="firstHeading"]/text()').get()
+        ship_name = response.xpath('//h1[@id="firstHeading"]/text()').get()
 
         time_texts = [
             "〇〇〇〇时报",
@@ -61,7 +61,7 @@ class TimeListSpider(scrapy.Spider):
         ]
 
         for time_text in time_texts:
-            time_item = TimeItem(name=name, time=time_text)
+            time_item = TimeItem(ship_name=ship_name, time_label=time_text)
             time_td = response.xpath(f"//td[normalize-space(.)='{time_text}']")[:1]
             # 个别页面（如熊野丸）该格为「二〇〇〇时报！」而非「二〇〇〇时报」
             if not time_td and time_text == "二〇〇〇时报":
@@ -76,11 +76,11 @@ class TimeListSpider(scrapy.Spider):
                 )[:1]
 
                 # 音频链接：<a data-filesrc="...">...</a>
-                time_item["href"] = time_href_a.xpath("@data-filesrc").get()
+                time_item["audio_url"] = time_href_a.xpath("@data-filesrc").get()
 
                 # 日文文本：<td lang="ja">...</td>
                 time_word_jp_td = time_td.xpath("following-sibling::td[@lang='ja']")[:1]
-                time_item["time_word_jp"] = (
+                time_item["voice_line_ja"] = (
                     time_word_jp_td.xpath("text()").get().strip()
                 )
 
@@ -88,7 +88,7 @@ class TimeListSpider(scrapy.Spider):
                 time_word_cn_td = time_td.xpath(
                     "parent::tr/following-sibling::tr[1]/td[1]"
                 )[:1]
-                time_item["time_word_cn"] = (
+                time_item["voice_line_zh"] = (
                     time_word_cn_td.xpath("text()").get().strip()
                 )
                 yield time_item
